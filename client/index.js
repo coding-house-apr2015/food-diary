@@ -12,5 +12,15 @@ angular.module('food-diary', ['firebase'])
 
   $scope.saveUser = function(){
     $scope.user.$save();
+    computeBMI();
   };
+
+  $scope.user.$loaded().then(function(){
+    computeBMI();
+  });
+
+  function computeBMI(){
+    var inches = $scope.user.unit === 'in' ? $scope.user.height : $scope.user.height * 0.393701;
+    $scope.bmi = ($scope.user.weight * 703) / Math.pow(inches, 2);
+  }
 }]);

@@ -16,20 +16,39 @@ html(lang='en', ng-app='food-diary')
           h1 Food Diary
       .row
         .col-xs-12
+          h3 User
           form(name='userForm', novalidate)
-            .form-group
-              label(for='name') Name
-              input.form-control#name(name='name', type='text', ng-model='user.name')
-            .form-group
-              label(for='age') Age
-              input.form-control#age(name='age', type='number', ng-model='user.age')
-            .form-group
-              label(for='gender') Gender
-              select.form-control#gender(name='gender', ng-model='user.gender')
-                option Male
-                option Female
-            .form-group
-              button.btn.btn-primary(ng-click='saveUser()') Save User
+            .row
+              .col-xs-6
+                .form-group
+                  label(for='name') Name
+                  input.form-control#name(name='name', type='text', ng-model='user.name')
+                .form-group
+                  label(for='age') Age
+                  input.form-control#age(name='age', type='number', ng-model='user.age')
+                .form-group
+                  label(for='gender') Gender
+                  select.form-control#gender(name='gender', ng-model='user.gender')
+                    option Male
+                    option Female
+                .form-group
+                  button.btn.btn-primary(ng-click='saveUser()') Save User
+              .col-xs-6
+                .form-group
+                  label(for='weight') Weight
+                  input.form-control#weight(name='weight', type='number', ng-model='user.weight')
+                .form-group
+                  label(for='height') Height
+                  input.form-control#height(name='height', type='number', ng-model='user.height')
+                .form-group
+                  label(for='unit') Unit
+                  select.form-control#unit(name='unit', ng-model='user.unit')
+                    option in
+                    option cm
+      .row
+        .col-xs-12
+          h3 BMI
+          p {{bmi | number:2}}
 
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
