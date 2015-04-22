@@ -12,9 +12,29 @@ html(lang='en', ng-app='food-diary')
   body(ng-controller='master')
     .container-fluid
       .row
+        .col-xs-3
+          h3 Statistics
+          table.table.table-striped
+            thead
+              tr
+                th BMI
+                th Old Weight
+                th Weight Gained
+                th Current Weight
+            tbody
+              tr
+                td {{bmi | number:2}}
+                td {{user.weight | number:2}}
+                td {{weightGained | number:2}}
+                td {{user.weight + weightGained | number:2}}
+        .col-xs-9
+
+      .row
         .col-xs-12
           h1 Food Diary
-      .row
+          button.btn.btn-danger(ng-click='showUserForm()') Show User Form
+
+      .row(ng-show='isUserFormShown')
         .col-xs-12
           h3 User
           form(name='userForm', novalidate)
@@ -45,10 +65,48 @@ html(lang='en', ng-app='food-diary')
                   select.form-control#unit(name='unit', ng-model='user.unit')
                     option in
                     option cm
+
       .row
         .col-xs-12
-          h3 BMI
-          p {{bmi | number:2}}
+          h3 Food
+          form(name='foodForm', novalidate)
+            .row
+              .col-xs-6
+                .form-group
+                  label(for='description') Description
+                  input.form-control#description(name='description', type='text', ng-model='food.description')
+                .form-group
+                  label(for='meal') Meal
+                  select.form-control#meal(name='meal', ng-model='food.meal')
+                    option Breakfast
+                    option Lunch
+                    option Dinner
+                .form-group
+                  label(for='calories') Calories
+                  input.form-control#calories(name='calories', type='number', ng-model='food.calories')
+                .form-group
+                  label(for='servings') Servings
+                  input.form-control#servings(name='servings', type='number', ng-model='food.servings')
+                .form-group
+                  button.btn.btn-primary(ng-click='addFood()') Add Food
+
+      .row
+        .col-xs-12
+          table.table.table-striped
+            thead
+              tr
+                th Description
+                th Meal
+                th Calories
+                th Servings
+                th Date
+            tbody
+              tr(ng-repeat='food in foods', ng-click='removeFood(food)')
+                td {{food.description}}
+                td {{food.meal}}
+                td {{food.calories}}
+                td {{food.servings}}
+                td {{food.date | date:'yyyy-MM-dd'}}
 
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
