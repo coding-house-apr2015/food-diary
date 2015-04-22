@@ -27,12 +27,24 @@ angular.module('food-diary', ['firebase'])
     computeWeight();
   });
 
-  $scope.addFood = function(){
-    var now = new Date();
-    $scope.food.date = now.getTime();
-    $scope.foods.$add($scope.food).then(function(){
-      computeWeight();
-    });
+  $scope.saveFood = function(){
+    if($scope.food.$id){
+      $scope.foods.$save($scope.food).then(function(){
+        computeWeight();
+        $scope.food = {};
+      });
+    }else{
+      var now = new Date();
+      $scope.food.date = now.getTime();
+      $scope.foods.$add($scope.food).then(function(){
+        computeWeight();
+        $scope.food = {};
+      });
+    }
+  };
+
+  $scope.editFood = function(food){
+    $scope.food = food;
   };
 
   $scope.removeFood = function(food){

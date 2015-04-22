@@ -88,20 +88,24 @@ html(lang='en', ng-app='food-diary')
                   label(for='servings') Servings
                   input.form-control#servings(name='servings', type='number', ng-model='food.servings')
                 .form-group
-                  button.btn.btn-primary(ng-click='addFood()') Add Food
+                  button.btn.btn-primary(ng-click='saveFood()') Save Food
 
       .row
         .col-xs-12
           table.table.table-striped
             thead
               tr
+                th Edit
+                th Delete
                 th Description
                 th Meal
                 th Calories
                 th Servings
                 th Date
             tbody
-              tr(ng-repeat='food in foods', ng-click='removeFood(food)')
+              tr(ng-repeat='food in foods')
+                td: button.btn.btn-info.btn-xs(ng-click='editFood(food)') Edit
+                td: button.btn.btn-danger.btn-xs(ng-click='removeFood(food)') Delete
                 td {{food.description}}
                 td {{food.meal}}
                 td {{food.calories}}
